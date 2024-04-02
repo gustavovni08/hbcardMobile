@@ -1,13 +1,15 @@
-import { View } from "react-native"
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import { View, StyleSheet } from "react-native"
+import { ScrollView } from "react-native-gesture-handler"
 import { useEffect, useState } from "react"
 import { useNavigation } from "@react-navigation/native"
+
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { setAgendamentoStoredData } from "../services/GetStoredData"
 import CardAgendamento from "../components/Home/CardAgendamento"
 import api from "../services/api"
 
 function GuiaMedico(){
     
-    const [agendamento, setAgendamento] = useState({})
     const [servicos, setServicos] = useState({})
     const [user, setUser] = useState({})
 
@@ -34,34 +36,45 @@ function GuiaMedico(){
         }
     }
 
-    const adicionarAgendamento = async (cod_associado, 
-                                        cod_credenciado, 
-                                        cod_servico, 
-                                        valor, 
-                                        data, 
-                                        horarios, 
-                                        descricao) => {
-        const queryData = {
-            cod_associado: cod_associado,
-            cod_credenciado: cod_credenciado,
-            cod_servico: cod_servico,
-            valor: valor,
-            data: data,
-            hora: horarios,
-            descricao: descricao
-
-        }
-        console.log(user)
-        console.log(queryData)
+    const setAgendamento = async (data) =>{
         try {
-            await api.post('/adicionarAgendamento', queryData)
-            console.log('agendamento adicionado com sucesso!')
-            navigator.navigate('Home')    
+            await setAgendamentoStoredData(data)
+            console.log(data)
+            navigator.navigate('Agendamento')
         } catch (error) {
             console.error(error)
+            return
         }
-        
     }
+
+    // const adicionarAgendamento = async (cod_associado, 
+    //                                     cod_credenciado, 
+    //                                     cod_servico, 
+    //                                     valor, 
+    //                                     data, 
+    //                                     horarios, 
+    //                                     descricao) => {
+    //     const queryData = {
+    //         cod_associado: cod_associado,
+    //         cod_credenciado: cod_credenciado,
+    //         cod_servico: cod_servico,
+    //         valor: valor,
+    //         data: data,
+    //         hora: horarios,
+    //         descricao: descricao
+
+    //     }
+    //     console.log(user)
+    //     console.log(queryData)
+    //     try {
+    //         await api.post('/adicionarAgendamento', queryData)
+    //         console.log('agendamento adicionado com sucesso!')
+    //         navigator.navigate('Home')    
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+        
+    // }
 
     useEffect(()=>{
         const fecthData = async () => {
@@ -75,16 +88,29 @@ function GuiaMedico(){
     }, [])
     
     return(
-        <View>
-        {user && Array.isArray(servicos) && servicos.map((servico, index) => (
-            <CardAgendamento
-                key={index}
-                title={servico.DESCRICAO}
-                onPress={()=> adicionarAgendamento(user.COD_ASSOCIADO, servico.CODIGO_CREDENCIADO, servico.CODIGO, servico.VALOR, servico.DATA, servico.HORARIOS, servico.DESCRICAO)}
-            />
-        ))}
+        <View style={styles.mainContainer}>
+            <ScrollView style={{height:400}}>
+            {user && Array.isArray(servicos) && servicos.map((servico, index) => (
+                <CardAgendamento
+                 key={index}
+                 title={servico.DESCRICAO}
+                 onPress={async () => setAgendamento(servicos[index])}
+                />
+             ))}
+            </ScrollView>
+        
     </View>
     )
+
+    
 }
+
+    const styles = StyleSheet.create({
+        mainContainer: {
+            flex:1,
+            justifyContent:'center',
+            alignItems:'center'
+        }
+    })
 
 export default GuiaMedico

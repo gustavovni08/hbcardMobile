@@ -1,10 +1,12 @@
-import { Image, Text, TouchableOpacity, View, StyleSheet, TextInput } from "react-native"
+import { Image, View, StyleSheet } from "react-native"
+import { ScrollView } from "react-native"
 import { useState } from "react"
 import { useNavigation } from "@react-navigation/native"
 import api from "../services/api"
 
 import ButtonContainer from "../components/utils/Button"
 import InputContainer from "../components/utils/InputContainer"
+import PasswordContainer from "../components/utils/passwordContainer"
 
 function SingUpScreen(){
 
@@ -46,7 +48,8 @@ function SingUpScreen(){
     }
 
     return(
-        <View style={styles.mainContainer}>
+        <ScrollView>
+            <View style={styles.mainContainer}>
             <View style={styles.imageContainer}>
                 <Image source={require('../assets/logo.png')}/>
             </View>
@@ -77,7 +80,7 @@ function SingUpScreen(){
             />
 
             
-            <InputContainer
+            <PasswordContainer
             placeholder="Senha:"
             value={senha}
             onChangeText={(newVal) => setSenha(newVal)}
@@ -87,17 +90,18 @@ function SingUpScreen(){
             onPress={submit}
             title={'Cadastrar'}
             />        
-            
         </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     mainContainer:{
-        flex:1,
+        height:'600px',
         alignItems:'center',
         justifyContent:'center',
         backgroundColor:'#fff',
+        marginBottom:'30px'
     },
 
     imageContainer:{

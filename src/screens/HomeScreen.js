@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useNavigation, useIsFocused } from "@react-navigation/native"
 import ButtonContainer from "../components/utils/Button"
 import CardAgendamento from "../components/Home/CardAgendamento"
+import ScrollAgendamento from "../components/../components/Home/ScrollAgendamentos"
 import api from "../services/api"
 
 function HomeScreen(){
@@ -58,28 +59,12 @@ function HomeScreen(){
 
     return(
         <View style={styles.mainContainer}>
-            {user && (
-                <View>
-                {/* <Text>Bem Vindo, {user.NOME_ASSOCIADO}</Text>
-                <Text>Seus Agendamentos</Text> */}
-                {agendamentos.map(agendamento =>{
-                return(
-                    <View key={agendamento.COD_CONSULTA}>
-                        <CardAgendamento
-                        title={agendamento.DESCRICAO}
-                        data={agendamento.DATA.split('-')[1]}
-                        />
-                    </View>
-                )
-                })}
-                {agendamentos.length === 0 && (
-                <Text>
-                    sem agendamentos aqui :/
-                </Text>
-                )}
-                </View>
 
+            {agendamentos.length !== 0 && (
+                <ScrollAgendamento
+                lista={agendamentos}/>
             )}
+
 
             <ButtonContainer
             title="Novo Agendamento"
@@ -98,7 +83,7 @@ const styles = StyleSheet.create({
     mainContainer:{
         flex:'1',
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'space-evenly'
     },
     
 })

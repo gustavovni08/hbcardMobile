@@ -1,7 +1,8 @@
 import { Image, View, StyleSheet} from "react-native"
-import AsyncStorage from '@react-native-async-storage/async-storage';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
 import ButtonContainer from "../components/utils/Button";
 import InputContainer from "../components/utils/InputContainer";
+import PasswordContainer from "../components/utils/passwordContainer";
 import api from "../services/api"
 import { useState } from "react"
 import { useNavigation } from "@react-navigation/native";
@@ -51,7 +52,7 @@ function SingInScreen(){
             onChangeText={(newVal) => setEmail(newVal)}
             />
 
-            <InputContainer
+            <PasswordContainer
             placeholder="Senha:"
             value={senha}
             onChangeText={(newVal) => setSenha(newVal)}

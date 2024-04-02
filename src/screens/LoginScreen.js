@@ -1,7 +1,6 @@
 import { View, StyleSheet } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import ButtonContainer from "../components/utils/Button"
-// import LoginButton from "../components/LoginButton"
 import ImageContainer from "../components/utils/ImageContainer"
 
 
