@@ -1,6 +1,6 @@
 import { StyleSheet, View, TextInput } from "react-native"
 
-function TextInput(props){
+function InputContainer(props){
 
     const {onChange, value, placeholder} = props
 
@@ -8,7 +8,7 @@ function TextInput(props){
         <View style={styles.inputContainer}>
             <TextInput style={styles.input}
             value={value}
-            onChange={onChange}
+            onChangeText={onChange}
             placeholder={placeholder}/>
         </View>
     )
@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
         borderWidth:'0.1px',
         borderRadius:'4px',
         width:'200px',
+        height:'30px'
     },
 })
 
-export default TextInput
+export default InputContainer
