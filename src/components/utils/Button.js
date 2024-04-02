@@ -1,6 +1,6 @@
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native"
 
-function LoginButton(props){
+function ButtonContainer(props){
     const {title, onPress} = props
     return(
         <View style={styles.buttonContainer}>
@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
     button:{
         alignItems:'center',
         justifyContent:'center',
-        height:'35px',
+        height:'40px',
         width:'200px',
-        backgroundColor: '#3b5998',
-        borderRadius:'8px'
+        backgroundColor: '#2191E3',
+        // borderRadius:'8px'
     },
 
     buttonFont:{
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LoginButton
+export default ButtonContainer

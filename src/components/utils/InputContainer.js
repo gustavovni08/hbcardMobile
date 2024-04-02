@@ -1,14 +1,14 @@
 import { StyleSheet, View, TextInput } from "react-native"
 
-function TextInput(props){
+function InputContainer(props){
 
-    const {onChange, value, placeholder} = props
+    const {onChangeText, value, placeholder} = props
 
     return(
         <View style={styles.inputContainer}>
             <TextInput style={styles.input}
             value={value}
-            onChange={onChange}
+            onChangeText={onChangeText}
             placeholder={placeholder}/>
         </View>
     )
@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
     input:{
         borderStyle:'solid',
         borderWidth:'0.1px',
-        borderRadius:'4px',
+        // borderRadius:'4px',
+        height:'30px',
         width:'200px',
     },
 })
 
-export default TextInput
+export default InputContainer
