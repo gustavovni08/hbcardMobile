@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet} from "react-native"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useEffect, useState } from "react"
+import { useNavigation, useIsFocused } from "@react-navigation/native"
 import ButtonContainer from "../components/utils/Button"
 import CardAgendamento from "../components/Home/CardAgendamento"
 import api from "../services/api"
@@ -9,7 +10,9 @@ function HomeScreen(){
 
     const [agendamentos, setAgendamentos] = useState([])
     const [user, setUser] = useState({})
-    const [userCode, setUserCode] = useState()
+
+    const navigation = useNavigation()
+    const isFocused = useIsFocused()
 
     const getUser = async () =>{
         try {
@@ -48,21 +51,23 @@ function HomeScreen(){
                 getAgendamentos(user.COD_ASSOCIADO)
             }
         } 
-        effect()
-    }, [])
+        if(isFocused){
+            effect()
+        }
+    }, [isFocused])
 
     return(
         <View style={styles.mainContainer}>
             {user && (
                 <View>
-                <Text>Bem Vindo, {user.NOME_ASSOCIADO}</Text>
-                <Text>Seus Agendamentos</Text>
+                {/* <Text>Bem Vindo, {user.NOME_ASSOCIADO}</Text>
+                <Text>Seus Agendamentos</Text> */}
                 {agendamentos.map(agendamento =>{
                 return(
                     <View key={agendamento.COD_CONSULTA}>
                         <CardAgendamento
                         title={agendamento.DESCRICAO}
-                        data={agendamento.DATA}
+                        data={agendamento.DATA.split('-')[1]}
                         />
                     </View>
                 )
@@ -78,6 +83,10 @@ function HomeScreen(){
 
             <ButtonContainer
             title="Novo Agendamento"
+            width='300px'
+            height='50px'
+            fontSize='22px'
+            onPress={()=>(navigation.navigate('GuiaMedico'))}
             />
 
         </View>
@@ -90,7 +99,8 @@ const styles = StyleSheet.create({
         flex:'1',
         alignItems:'center',
         justifyContent:'center'
-    }
+    },
+    
 })
 
 

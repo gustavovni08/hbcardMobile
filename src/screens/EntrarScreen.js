@@ -1,5 +1,4 @@
 import { Image, View, StyleSheet} from "react-native"
-// import { MaterialIcons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ButtonContainer from "../components/utils/Button";
 import InputContainer from "../components/utils/InputContainer";
@@ -8,7 +7,6 @@ import { useState } from "react"
 import { useNavigation } from "@react-navigation/native";
 import {setAssociadoStoredData} from '../services/GetStoredData'
 
-// const {setAssociadoStoredData} = require('../services/GetStoredData')
 
 function SingInScreen(){
 
@@ -16,7 +14,6 @@ function SingInScreen(){
     const [senha, setSenha] = useState('')
 
     const navigation = useNavigation()
-    // const setAssociado = setAssociadoStoredData()
 
 
     const validarAssociado = async () => {
@@ -30,11 +27,8 @@ function SingInScreen(){
             const { data } = await api.post('/validarAssociado', auth)
             if (data.response.code === 200 ){
                 await setAssociadoStoredData(data.response.data[0])
-                // console.log(data.response.data[0])
-                // await AsyncStorage.setItem('ASSOCIADO', JSON.stringify(data.response.data[0]))
                 navigation.navigate('Home')
             }
-            // console.log(data)    
         } catch (error) {
             console.error(error)
         }

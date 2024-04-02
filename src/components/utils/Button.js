@@ -1,13 +1,17 @@
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native"
 
 function ButtonContainer(props){
-    const {title, onPress} = props
+    const {title, onPress, width, height, fontSize} = props
     return(
         <View style={styles.buttonContainer}>
         <TouchableOpacity 
-        style={styles.button}
+        style={[styles.button,
+        {height: height ? height : '40px'},
+        {width: width ? width : '200px'}]}
         onPress={onPress}>
-            <Text style={styles.buttonFont}>
+            <Text style={
+                [styles.buttonFont,
+                {fontSize: fontSize ? fontSize : '20px'}]}>
                 {title}
             </Text>
         </TouchableOpacity>
@@ -26,16 +30,12 @@ const styles = StyleSheet.create({
     button:{
         alignItems:'center',
         justifyContent:'center',
-        height:'40px',
-        width:'200px',
         backgroundColor: '#2191E3',
-        // borderRadius:'8px'
     },
 
     buttonFont:{
         color:'#fff',
         fontWeight:'bold',
-        fontSize:"'22px"
     }
 })
 

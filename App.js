@@ -6,7 +6,7 @@ import SingInScreen from './src/screens/EntrarScreen';
 import SingUpScreen from './src/screens/CadastrarScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
-
+import GuiaMedico from './src/screens/GuiaMedicoScreen';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +18,7 @@ export default function App() {
         <Stack.Screen name="Entrar" component={SingInScreen}/>
         <Stack.Screen name="Cadastrar" component={SingUpScreen}/>
         <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="GuiaMedico" component={GuiaMedico}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
