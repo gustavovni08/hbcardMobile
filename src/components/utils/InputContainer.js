@@ -7,7 +7,12 @@ function InputContainer(props){
     return(
         <View style={styles.inputContainer}>
             <TextInput style={styles.input}
+            value={value}
+<<<<<<<< HEAD:src/components/InputContainer.js
+            onChangeText={onChange}
+========
             onChangeText={onChangeText}
+>>>>>>>> 204c1eba7050f96ee6dcbb2d191a54826ca1e940:src/components/utils/InputContainer.js
             placeholder={placeholder}/>
         </View>
     )

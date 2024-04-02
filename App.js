@@ -2,19 +2,23 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-
-import SingUpScreen from './src/screens/SignUpScreen';
-import SignInScreen from './src/screens/SignInScreen';
+import SingInScreen from './src/screens/EntrarScreen';
+import SingUpScreen from './src/screens/CadastrarScreen';
 import LoginScreen from './src/screens/LoginScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import GuiaMedico from './src/screens/GuiaMedicoScreen';
+
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen}/>
-        <Stack.Screen name="SingIn" component={SignInScreen}/>
-        <Stack.Screen name="SingUp" component={SingUpScreen}/>
+        <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="Entrar" component={SingInScreen}/>
+        <Stack.Screen name="Cadastrar" component={SingUpScreen}/>
+        <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="GuiaMedico" component={GuiaMedico}/>
       </Stack.Navigator>
     </NavigationContainer>
 

@@ -1,13 +1,17 @@
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native"
 
-function LoginButton(props){
-    const {title, onPress} = props
+function ButtonContainer(props){
+    const {title, onPress, width, height, fontSize} = props
     return(
         <View style={styles.buttonContainer}>
         <TouchableOpacity 
-        style={styles.button}
+        style={[styles.button,
+        {height: height ? height : '40px'},
+        {width: width ? width : '200px'}]}
         onPress={onPress}>
-            <Text style={styles.buttonFont}>
+            <Text style={
+                [styles.buttonFont,
+                {fontSize: fontSize ? fontSize : '20px'}]}>
                 {title}
             </Text>
         </TouchableOpacity>
@@ -26,17 +30,13 @@ const styles = StyleSheet.create({
     button:{
         alignItems:'center',
         justifyContent:'center',
-        height:'35px',
-        width:'200px',
-        backgroundColor: '#3b5998',
-        borderRadius:'8px'
+        backgroundColor: '#2191E3',
     },
 
     buttonFont:{
         color:'#fff',
         fontWeight:'bold',
-        fontSize:"'22px"
     }
 })
 
-export default LoginButton
+export default ButtonContainer
