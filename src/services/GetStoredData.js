@@ -19,18 +19,18 @@ export async function setAssociadoStoredData(data) {
     }
 }
 
-export async function setAgendamentoStoredData(data) {
+export async function setServicoStoredData(data) {
     try {
-        await AsyncStorage.setItem('AGENDAMENTO', JSON.stringify(data))
+        await AsyncStorage.setItem('SERVICO', JSON.stringify(data))
     } catch (error) {
         console.error(error)
         return
     }
 }
 
-export async function getAgendamentosStoredData() {
+export async function getServicoStoredData() {
     try{
-        const data = await AsyncStorage.getItem('AGENDAMENTO')
+        const data = await AsyncStorage.getItem('SERVICO')
         return data
     } catch (error) {
         console.error(error)

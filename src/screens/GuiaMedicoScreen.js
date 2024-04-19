@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useNavigation } from "@react-navigation/native"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { setAgendamentoStoredData } from "../services/GetStoredData"
+import { setServicoStoredData } from "../services/GetStoredData"
 import CardAgendamento from "../components/Home/CardAgendamento"
 import api from "../services/api"
 
@@ -38,7 +38,7 @@ function GuiaMedico(){
 
     const setAgendamento = async (data) =>{
         try {
-            await setAgendamentoStoredData(data)
+            await setServicoStoredData(data)
             console.log(data)
             navigator.navigate('Agendamento')
         } catch (error) {

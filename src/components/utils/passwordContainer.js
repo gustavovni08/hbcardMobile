@@ -39,10 +39,6 @@ const styles = StyleSheet.create({
     passwordInput:{
         borderStyle:'solid',
         borderWidth:'0.1px',
-        // borderRadius:'4px',
-        // borderTopRightRadius: '0',
-        // borderBottomRightRadius: '0',
-        // borderRightWidth:"0",
         borderRightColor:"#fff",
         width:'170px',
         height:'30px',
@@ -61,11 +57,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         borderStyle:'solid',
-        // borderRadius:'4px',
         borderWidth:'0.1px',
-        // borderTopLeftRadius: '0',
-        // borderBottomLeftRadius: '0',
-        // borderLeftWidth:"0",
         width:'30px',
         height:'30px',
         backgroundColor:'#fff'
