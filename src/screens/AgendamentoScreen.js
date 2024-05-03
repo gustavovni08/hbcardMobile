@@ -1,51 +1,37 @@
-import { View, Text, Touchable } from "react-native"
+import { View } from "react-native"
 import { useIsFocused } from "@react-navigation/core"
 import { useState, useEffect } from "react"
 
-import { getServicoStoredData, getAssociadoStoredData } from "../services/GetStoredData"
 import api from "../services/api"
+import { useGlobalContext } from "../services/context"
 
 import AgendamentoHeader from "../components/agendamento/AgendamentoHeader"
 import SelectContainer from "../components/utils/selectContainer"
 import ValorContainer from "../components/pagamento/ValorContainer"
 import ButtonContainer from "../components/utils/Button"
-import { TouchableOpacity } from "react-native-web"
+
 
 
 function AgendamentoScreen(){
 
-    const[servico, setServico] = useState({})
-    const[associado, setAssociado] = useState({})
+    const { servico, associado, agendamento, setAgendamento } = useGlobalContext()
+
     const[datas, setDatas] = useState([])
     const[horarios, setHorarios] = useState([])
     const[credenciado, setCredenciado] = useState({})
 
     const isFocused = useIsFocused()
 
-    const getServicoData = async () =>{
-        const data = await getServicoStoredData()
-        console.log(data)
-        return data
-    }
-
-    const getAssociadoData = async () => {
-        const data = await getAssociadoStoredData()
-        console.log(data)
-        return data
-
-    }
-
-    const getCredenciadoData = async (id) => {
+    const getCredenciadoData = async () => {
         try {
-            const {data} = await api.get(`/listarUnicoCredenciado/${id}`)
-            console.log(data)
+            const {data} = await api.get(`/listarUnicoCredenciado/${servico.CODIGO_CREDENCIADO}`)
             return data.response[0]
         } catch (error) {
             console.error(error)
         }
     }
 
-    const setDatasDisponiveis = (dias) => {
+    const setDatasDisponiveis = (dias, datasIndisponiveis) => {
         const diasDaSemana = {
             domingo: 0,
             segunda: 1,
@@ -76,7 +62,11 @@ function AgendamentoScreen(){
 
             while (diaDeInicio <= dataLimite) {
                 const dataFormatada = `${diaDeInicio.getDate().toString().padStart(2, '0')}/${(diaDeInicio.getMonth() + 1).toString().padStart(2, '0')}/${diaDeInicio.getFullYear()}`
-                datas.push(dataFormatada)
+                
+                if (!datasIndisponiveis.includes(dataFormatada)) {
+                    datas.push(dataFormatada)
+                }
+
                 diaDeInicio.setDate(diaDeInicio.getDate() + 7)
             }
 
@@ -86,6 +76,20 @@ function AgendamentoScreen(){
         console.log(diasDisponiveis)
         return diasDisponiveis
 
+
+    }
+
+    const getDatasIndisponiveis = async (id) =>{
+        
+        try {
+            const {data} = await api.get(`/listarAgendamentosConfirmados/${id}`)
+            console.log(data)
+            return data.response    
+        } catch (error) {
+            console.error(error)
+            throw error
+        }
+        
 
     }
 
@@ -99,32 +103,35 @@ function AgendamentoScreen(){
 
     }
 
+    const inserirNovoAgendamento = async () => {
+
+        const novoAgendamento = {
+            
+        }
+
+    }
+
     useEffect(() =>{
     const fetchData = async () =>{
-        
-         const servicoData = await getServicoData()
-         const parsedServicoData = JSON.parse(servicoData)
-         setServico(parsedServicoData)
-         
-         const associadoData = await getAssociadoData()
-         const parsedAssociadoData = JSON.parse(associadoData)
-         setAssociado(parsedAssociadoData)
+ 
+        if(servico){
+            const data = await getCredenciadoData()
+            setCredenciado(data)
+        }
 
-         if( parsedServicoData && parsedServicoData.CODIGO_CREDENCIADO){
-            const credenciadoData = await getCredenciadoData(parsedServicoData.CODIGO_CREDENCIADO)
-            setCredenciado(credenciadoData)
-         }
 
-         if(parsedServicoData && parsedServicoData.DATA){
-            const datas = setDatasDisponiveis(parsedServicoData.DATA)
+        if(servico && servico.DATA){
+            const datasIndisponiveis = await getDatasIndisponiveis(servico.CODIGO)
+            const datas = setDatasDisponiveis(servico.DATA, datasIndisponiveis)
             setDatas(datas)
-            const horario = getHorarios(parsedServicoData.HORARIOS)
+            const horario = getHorarios(servico.HORARIOS)
             setHorarios(horario)
-         }
+        }
          
     }
 
     fetchData()
+    console.log(servico, associado, credenciado)
     }, [isFocused])
 
     return(

@@ -9,8 +9,9 @@ function SelectContainer(props){
     <View style={styles.mainContainer}>
         <Text style={{fontSize:'22px'}}>{label}:</Text>
         <Picker>
-            {data.map((item) =>(
+            {data.map((item, index) =>(
                 <Picker.Item
+                key={index}
                 label={item}
                 value={item}
                 />

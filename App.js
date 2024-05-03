@@ -9,10 +9,15 @@ import HomeScreen from './src/screens/HomeScreen';
 import GuiaMedico from './src/screens/GuiaMedicoScreen';
 import AgendamentoScreen from './src/screens/AgendamentoScreen';
 
+import GlobalProvider from './src/services/context';
+
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
+
+    <GlobalProvider>
+
     <NavigationContainer>
       <Stack.Navigator>
 
@@ -67,6 +72,8 @@ export default function App() {
 
       </Stack.Navigator>
     </NavigationContainer>
+
+    </GlobalProvider>
 
   );
 }
