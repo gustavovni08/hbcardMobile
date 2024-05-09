@@ -3,12 +3,17 @@ import { Picker, Text, StyleSheet, View } from "react-native"
 
 function SelectContainer(props){
 
-    const {label, data, onValueChange} = props
+    const {label, data, onValueChange, selectedValue, fontSize, flexDirection, paddingLeft} = props
 
     return( 
-    <View style={styles.mainContainer}>
-        <Text style={{fontSize:'22px'}}>{label}:</Text>
-        <Picker>
+    <View style={[styles.mainContainer, 
+    {flexDirection: flexDirection ? flexDirection : 'row'},
+    {paddingLeft: paddingLeft ? paddingLeft : '35px'}]}>
+        <Text style={{fontSize: fontSize ? fontSize : '22px'}}>{label}:</Text>
+        <Picker
+        selectedValue={selectedValue}
+        onValueChange={onValueChange}
+        >
             {data.map((item, index) =>(
                 <Picker.Item
                 key={index}
@@ -29,7 +34,6 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems: 'center',
-        paddingLeft:'35px',
         marginBottom:'10px'
     }
 })

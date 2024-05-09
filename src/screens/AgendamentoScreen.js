@@ -1,5 +1,5 @@
 import { View } from "react-native"
-import { useIsFocused } from "@react-navigation/core"
+import { useNavigation ,useIsFocused } from "@react-navigation/core"
 import { useState, useEffect } from "react"
 
 import api from "../services/api"
@@ -17,10 +17,13 @@ function AgendamentoScreen(){
     const { servico, associado, agendamento, setAgendamento } = useGlobalContext()
 
     const[datas, setDatas] = useState([])
+    const[dataSelecionada, setDataSelecionada] = useState()
     const[horarios, setHorarios] = useState([])
+    const[horaSelecionada, setHoraSelecionada] = useState([])
     const[credenciado, setCredenciado] = useState({})
 
     const isFocused = useIsFocused()
+    const navigator = useNavigation()
 
     const getCredenciadoData = async () => {
         try {
@@ -105,8 +108,30 @@ function AgendamentoScreen(){
 
     const inserirNovoAgendamento = async () => {
 
+        const {data} = await api.get('/listarMaiorCodigoAgendamento')
+        let cod_agendamento = data.response[0]['MAIOR_COD_AGENDAMENTO']
+
         const novoAgendamento = {
-            
+            cod_agendamento: cod_agendamento++,
+            cod_associado: associado.COD_ASSOCIADO,
+            cod_credenciado: credenciado.COD_CREDENCIADO,
+            cod_servico: servico.CODIGO,
+            valor: servico.VALOR,
+            data: dataSelecionada,
+            hora: horaSelecionada,
+            descricao: servico.DESCRICAO,
+            status: 'AGUARDANDO_PAGAMENTO'
+        }
+
+        try {
+            const result = await api.post('/adicionarAgendamento', novoAgendamento)
+            console.log('agendamento inserido com sucesso')
+            setAgendamento(novoAgendamento)
+            console.log(result)
+            navigator.navigate('FormaDePagamento')
+        } catch (error) {
+            console.error(error)
+            window.alert(error)
         }
 
     }
@@ -145,10 +170,14 @@ function AgendamentoScreen(){
 
             <SelectContainer
             label="Dia"
+            selectedValue={dataSelecionada}
+            onValueChange={(itemValue) => setDataSelecionada(itemValue)}
             data={datas}/>
 
             <SelectContainer
             label="Horarios"
+            selectedValue={horaSelecionada}
+            onValueChange={(itemValue) => setHoraSelecionada(itemValue)}
             data={horarios}/>
 
             <ValorContainer
@@ -156,6 +185,7 @@ function AgendamentoScreen(){
 
             <ButtonContainer
             title="ir para pagamento"
+            onPress={async () => inserirNovoAgendamento()}
             width="80%"
             height="40px"
             />
