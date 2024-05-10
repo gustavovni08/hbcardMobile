@@ -9,6 +9,8 @@ import HomeScreen from './src/screens/HomeScreen';
 import GuiaMedico from './src/screens/GuiaMedicoScreen';
 import AgendamentoScreen from './src/screens/AgendamentoScreen';
 import FormaDePagamento from './src/screens/FormaDePagamentoScreen';
+import Pagamento from './src/screens/PagamentoScreen';
+
 
 import GlobalProvider from './src/services/context';
 
@@ -21,14 +23,6 @@ export default function App() {
 
     <NavigationContainer>
       <Stack.Navigator>
-{/* 
-      <Stack.Screen
-        name="FormaDePagamento"
-        component={FormaDePagamento}
-        options={{
-          cardStyle:{height:'100%'},
-          headerTitle:''
-        }}/> */}
 
         <Stack.Screen 
         name="Login" 
@@ -79,13 +73,21 @@ export default function App() {
           headerTitle:''
         }}/>
 
-        {/* <Stack.Screen
+       <Stack.Screen
         name="FormaDePagamento"
         component={FormaDePagamento}
         options={{
           cardStyle:{height:'100%'},
           headerTitle:''
-        }}/> */}
+        }}/>
+
+       <Stack.Screen
+        name="Pagamento"
+        component={Pagamento}
+        options={{
+          cardStyle:{height:'100%'},
+          headerTitle:''
+        }}/>
 
 
       </Stack.Navigator>

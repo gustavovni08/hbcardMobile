@@ -2,13 +2,17 @@ import { Text, View, StyleSheet } from "react-native"
 
 function AgendamentoHeader(props){
 
-    const {descricao, nome_credenciado, logadouro, numero_logadouro} = props
+    const {descricao, nome_credenciado, logadouro, numero_logadouro, data, hora} = props
 
     return(
         <View style={styles.mainContainer}>
         <Text style={styles.textAlign}>{descricao}</Text>
         <Text style={styles.textAlign}>{nome_credenciado}</Text>
         <Text style={styles.addressTextAlign}>{logadouro}, {numero_logadouro}</Text>        
+        {data && hora && (
+            <Text style={styles.textAlign}>{data} às {hora}</Text>
+        )}
+
         </View>
     
     )

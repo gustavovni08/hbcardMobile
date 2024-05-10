@@ -14,12 +14,12 @@ import ButtonContainer from "../components/utils/Button"
 
 function AgendamentoScreen(){
 
-    const { servico, associado, agendamento, setAgendamento } = useGlobalContext()
+    const { servico, associado, agendamento, setAgendamento} = useGlobalContext()
 
     const[datas, setDatas] = useState([])
     const[dataSelecionada, setDataSelecionada] = useState()
     const[horarios, setHorarios] = useState([])
-    const[horaSelecionada, setHoraSelecionada] = useState([])
+    const[horaSelecionada, setHoraSelecionada] = useState()
     const[credenciado, setCredenciado] = useState({})
 
     const isFocused = useIsFocused()
