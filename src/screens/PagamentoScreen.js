@@ -1,10 +1,16 @@
 import AgendamentoHeader from "../components/agendamento/AgendamentoHeader"
+import Subtotal from "../components/pagamento/Subtotal"
+import ClipBoard from "../components/utils/ClipBoard"
 
 import { useGlobalContext } from "../services/context"
 import { useEffect, useState } from "react"
+import { useRoute } from "@react-navigation/native"
 import api from "../services/api"
 
 function Pagamento(){
+
+    const route = useRoute()
+    const{taxa} =route.params
 
     const {agendamento, servico } = useGlobalContext()
     const [cobranca, setCobranca] = useState("https://www.asaas.com/i/u6lkzjpth8zqth5g")
@@ -55,7 +61,14 @@ function Pagamento(){
         numero_logadouro={credenciado.NUMERO_LOGADOURO}
         data={agendamento.data}
         hora={agendamento.hora}/>
-        {cobranca.LINK}
+
+        <Subtotal
+        valor={parseFloat(agendamento.valor).toFixed(2)}
+        taxa={parseFloat(taxa)}
+        />
+
+        <ClipBoard
+        texto={cobranca.LINK}/>
         </>
     )
 }

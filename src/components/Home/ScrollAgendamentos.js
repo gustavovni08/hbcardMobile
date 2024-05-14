@@ -20,7 +20,7 @@ function ScrollAgendamento(props){
                     <CardAgendamento
                     key={index}
                     title={agendamento.DESCRICAO}
-                    data={agendamento.DATA.split('-')[1]}
+                    data={agendamento.DATA}
                     />
                 
                     )

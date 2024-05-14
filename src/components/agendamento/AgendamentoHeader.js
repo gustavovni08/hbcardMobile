@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     mainContainer:{
         justifyContent:'center',
         alignItems:'center',
-        height: '200px'
+        height: '180px'
 
     },
 

@@ -58,7 +58,7 @@ function FormaDePagamento(){
             const {data} = await api.post('/inserirCobranca', body)
             console.log('cobranca inserida com sucesso')
             console.log(data)
-            navigator.navigate('Pagamento')
+            navigator.navigate('Pagamento', {taxa:taxa})
             return data
         } catch (error) {
             console.error(error)
