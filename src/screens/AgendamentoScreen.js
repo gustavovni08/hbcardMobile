@@ -1,6 +1,7 @@
-import { View, Text, Touchable } from "react-native"
+import { View } from "react-native"
 import { useIsFocused } from "@react-navigation/core"
 import { useState, useEffect } from "react"
+import { useNavigation } from "@react-navigation/native";
 
 import { getServicoStoredData, getAssociadoStoredData } from "../services/GetStoredData"
 import api from "../services/api"
@@ -9,7 +10,7 @@ import AgendamentoHeader from "../components/agendamento/AgendamentoHeader"
 import SelectContainer from "../components/utils/selectContainer"
 import ValorContainer from "../components/pagamento/ValorContainer"
 import ButtonContainer from "../components/utils/Button"
-import { TouchableOpacity } from "react-native-web"
+
 
 
 function AgendamentoScreen(){
@@ -20,7 +21,11 @@ function AgendamentoScreen(){
     const[horarios, setHorarios] = useState([])
     const[credenciado, setCredenciado] = useState({})
 
+    const[dataSelecionada, setDataSelecionada] = useState()
+    const[horaSelecionada, setHoraSelecionada] = useState()
+
     const isFocused = useIsFocused()
+    const navigator = useNavigation()
 
     const getServicoData = async () =>{
         const data = await getServicoStoredData()
@@ -99,6 +104,35 @@ function AgendamentoScreen(){
 
     }
 
+        const adicionarAgendamento = async (cod_associado, 
+                                        cod_credenciado, 
+                                        cod_servico, 
+                                        valor, 
+                                        data, 
+                                        horarios, 
+                                        descricao) => {
+        const queryData = {
+            cod_associado: cod_associado,
+            cod_credenciado: cod_credenciado,
+            cod_servico: cod_servico,
+            valor: valor,
+            data: data,
+            hora: horarios,
+            descricao: descricao
+
+        }
+       
+        console.log(queryData)
+        try {
+            await api.post('/adicionarAgendamento', queryData)
+            console.log('agendamento adicionado com sucesso!')
+            navigator.navigate('Home')    
+        } catch (error) {
+             console.error(error)
+         }
+        
+     }
+
     useEffect(() =>{
     const fetchData = async () =>{
         
@@ -137,20 +171,27 @@ function AgendamentoScreen(){
             />
 
             <SelectContainer
-            label="Dia"
-            data={datas}/>
+                label="Dia"
+                data={datas}
+                selectedValue={dataSelecionada}
+                onValueChange={setDataSelecionada}
+            />
 
             <SelectContainer
-            label="Horarios"
-            data={horarios}/>
+                label="Horarios"
+                data={horarios}
+                selectedValue={horaSelecionada}
+                onValueChange={setHoraSelecionada}
+            />
 
             <ValorContainer
             valor={servico.VALOR}/>
 
             <ButtonContainer
-            title="ir para pagamento"
+            title="CONFIRMAR"
             width="80%"
             height="40px"
+            onPress={ async () => (await adicionarAgendamento(associado.COD_ASSOCIADO, credenciado.COD_CREDENCIADO, servico.CODIGO, servico.VALOR, dataSelecionada, horaSelecionada, servico.DESCRICAO))}
             />
         </View>
     )

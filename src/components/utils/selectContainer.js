@@ -3,16 +3,20 @@ import { Picker, Text, StyleSheet, View } from "react-native"
 
 function SelectContainer(props){
 
-    const {label, data, onValueChange} = props
+    const {label, data, onValueChange, selectedValue} = props
 
     return( 
     <View style={styles.mainContainer}>
         <Text style={{fontSize:'22px'}}>{label}:</Text>
-        <Picker>
+        <Picker
+        selectedValue={selectedValue}
+        onValueChange={(itemValue) => onValueChange(itemValue)}
+        >
             {data.map((item) =>(
                 <Picker.Item
                 label={item}
                 value={item}
+                key={item}
                 />
             ))}
             
