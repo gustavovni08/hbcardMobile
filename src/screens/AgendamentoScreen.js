@@ -1,10 +1,10 @@
 import { View } from "react-native"
-import { useIsFocused } from "@react-navigation/core"
+import { useNavigation ,useIsFocused } from "@react-navigation/core"
 import { useState, useEffect } from "react"
 import { useNavigation } from "@react-navigation/native";
 
-import { getServicoStoredData, getAssociadoStoredData } from "../services/GetStoredData"
 import api from "../services/api"
+import { useGlobalContext } from "../services/context"
 
 import AgendamentoHeader from "../components/agendamento/AgendamentoHeader"
 import SelectContainer from "../components/utils/selectContainer"
@@ -15,42 +15,27 @@ import ButtonContainer from "../components/utils/Button"
 
 function AgendamentoScreen(){
 
-    const[servico, setServico] = useState({})
-    const[associado, setAssociado] = useState({})
-    const[datas, setDatas] = useState([])
-    const[horarios, setHorarios] = useState([])
-    const[credenciado, setCredenciado] = useState({})
+    const { servico, associado, agendamento, setAgendamento} = useGlobalContext()
 
+    const[datas, setDatas] = useState([])
     const[dataSelecionada, setDataSelecionada] = useState()
+    const[horarios, setHorarios] = useState([])
     const[horaSelecionada, setHoraSelecionada] = useState()
+    const[credenciado, setCredenciado] = useState({})
 
     const isFocused = useIsFocused()
     const navigator = useNavigation()
 
-    const getServicoData = async () =>{
-        const data = await getServicoStoredData()
-        console.log(data)
-        return data
-    }
-
-    const getAssociadoData = async () => {
-        const data = await getAssociadoStoredData()
-        console.log(data)
-        return data
-
-    }
-
-    const getCredenciadoData = async (id) => {
+    const getCredenciadoData = async () => {
         try {
-            const {data} = await api.get(`/listarUnicoCredenciado/${id}`)
-            console.log(data)
+            const {data} = await api.get(`/listarUnicoCredenciado/${servico.CODIGO_CREDENCIADO}`)
             return data.response[0]
         } catch (error) {
             console.error(error)
         }
     }
 
-    const setDatasDisponiveis = (dias) => {
+    const setDatasDisponiveis = (dias, datasIndisponiveis) => {
         const diasDaSemana = {
             domingo: 0,
             segunda: 1,
@@ -81,7 +66,11 @@ function AgendamentoScreen(){
 
             while (diaDeInicio <= dataLimite) {
                 const dataFormatada = `${diaDeInicio.getDate().toString().padStart(2, '0')}/${(diaDeInicio.getMonth() + 1).toString().padStart(2, '0')}/${diaDeInicio.getFullYear()}`
-                datas.push(dataFormatada)
+                
+                if (!datasIndisponiveis.includes(dataFormatada)) {
+                    datas.push(dataFormatada)
+                }
+
                 diaDeInicio.setDate(diaDeInicio.getDate() + 7)
             }
 
@@ -91,6 +80,20 @@ function AgendamentoScreen(){
         console.log(diasDisponiveis)
         return diasDisponiveis
 
+
+    }
+
+    const getDatasIndisponiveis = async (id) =>{
+        
+        try {
+            const {data} = await api.get(`/listarAgendamentosConfirmados/${id}`)
+            console.log(data)
+            return data.response    
+        } catch (error) {
+            console.error(error)
+            throw error
+        }
+        
 
     }
 
@@ -104,61 +107,57 @@ function AgendamentoScreen(){
 
     }
 
-        const adicionarAgendamento = async (cod_associado, 
-                                        cod_credenciado, 
-                                        cod_servico, 
-                                        valor, 
-                                        data, 
-                                        horarios, 
-                                        descricao) => {
-        const queryData = {
-            cod_associado: cod_associado,
-            cod_credenciado: cod_credenciado,
-            cod_servico: cod_servico,
-            valor: valor,
-            data: data,
-            hora: horarios,
-            descricao: descricao
+    const inserirNovoAgendamento = async () => {
 
+        const {data} = await api.get('/listarMaiorCodigoAgendamento')
+        let cod_agendamento = data.response[0]['MAIOR_COD_AGENDAMENTO']
+
+        const novoAgendamento = {
+            cod_agendamento: cod_agendamento++,
+            cod_associado: associado.COD_ASSOCIADO,
+            cod_credenciado: credenciado.COD_CREDENCIADO,
+            cod_servico: servico.CODIGO,
+            valor: servico.VALOR,
+            data: dataSelecionada,
+            hora: horaSelecionada,
+            descricao: servico.DESCRICAO,
+            status: 'AGUARDANDO_PAGAMENTO'
         }
-       
-        console.log(queryData)
+
         try {
-            await api.post('/adicionarAgendamento', queryData)
-            console.log('agendamento adicionado com sucesso!')
-            navigator.navigate('Home')    
+            const result = await api.post('/adicionarAgendamento', novoAgendamento)
+            console.log('agendamento inserido com sucesso')
+            setAgendamento(novoAgendamento)
+            console.log(result)
+            navigator.navigate('FormaDePagamento')
         } catch (error) {
-             console.error(error)
-         }
-        
-     }
+            console.error(error)
+            window.alert(error)
+        }
+
+    }
 
     useEffect(() =>{
     const fetchData = async () =>{
-        
-         const servicoData = await getServicoData()
-         const parsedServicoData = JSON.parse(servicoData)
-         setServico(parsedServicoData)
-         
-         const associadoData = await getAssociadoData()
-         const parsedAssociadoData = JSON.parse(associadoData)
-         setAssociado(parsedAssociadoData)
+ 
+        if(servico){
+            const data = await getCredenciadoData()
+            setCredenciado(data)
+        }
 
-         if( parsedServicoData && parsedServicoData.CODIGO_CREDENCIADO){
-            const credenciadoData = await getCredenciadoData(parsedServicoData.CODIGO_CREDENCIADO)
-            setCredenciado(credenciadoData)
-         }
 
-         if(parsedServicoData && parsedServicoData.DATA){
-            const datas = setDatasDisponiveis(parsedServicoData.DATA)
+        if(servico && servico.DATA){
+            const datasIndisponiveis = await getDatasIndisponiveis(servico.CODIGO)
+            const datas = setDatasDisponiveis(servico.DATA, datasIndisponiveis)
             setDatas(datas)
-            const horario = getHorarios(parsedServicoData.HORARIOS)
+            const horario = getHorarios(servico.HORARIOS)
             setHorarios(horario)
-         }
+        }
          
     }
 
     fetchData()
+    console.log(servico, associado, credenciado)
     }, [isFocused])
 
     return(
@@ -171,27 +170,25 @@ function AgendamentoScreen(){
             />
 
             <SelectContainer
-                label="Dia"
-                data={datas}
-                selectedValue={dataSelecionada}
-                onValueChange={setDataSelecionada}
-            />
+            label="Dia"
+            selectedValue={dataSelecionada}
+            onValueChange={(itemValue) => setDataSelecionada(itemValue)}
+            data={datas}/>
 
             <SelectContainer
-                label="Horarios"
-                data={horarios}
-                selectedValue={horaSelecionada}
-                onValueChange={setHoraSelecionada}
-            />
+            label="Horarios"
+            selectedValue={horaSelecionada}
+            onValueChange={(itemValue) => setHoraSelecionada(itemValue)}
+            data={horarios}/>
 
             <ValorContainer
             valor={servico.VALOR}/>
 
             <ButtonContainer
-            title="CONFIRMAR"
+            title="ir para pagamento"
+            onPress={async () => inserirNovoAgendamento()}
             width="80%"
             height="40px"
-            onPress={ async () => (await adicionarAgendamento(associado.COD_ASSOCIADO, credenciado.COD_CREDENCIADO, servico.CODIGO, servico.VALOR, dataSelecionada, horaSelecionada, servico.DESCRICAO))}
             />
         </View>
     )

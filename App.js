@@ -8,11 +8,19 @@ import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import GuiaMedico from './src/screens/GuiaMedicoScreen';
 import AgendamentoScreen from './src/screens/AgendamentoScreen';
+import FormaDePagamento from './src/screens/FormaDePagamentoScreen';
+import Pagamento from './src/screens/PagamentoScreen';
+
+
+import GlobalProvider from './src/services/context';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
+
+    <GlobalProvider>
+
     <NavigationContainer>
       <Stack.Navigator>
 
@@ -65,8 +73,27 @@ export default function App() {
           headerTitle:''
         }}/>
 
+       <Stack.Screen
+        name="FormaDePagamento"
+        component={FormaDePagamento}
+        options={{
+          cardStyle:{height:'100%'},
+          headerTitle:''
+        }}/>
+
+       <Stack.Screen
+        name="Pagamento"
+        component={Pagamento}
+        options={{
+          cardStyle:{height:'100%'},
+          headerTitle:''
+        }}/>
+
+
       </Stack.Navigator>
     </NavigationContainer>
+
+    </GlobalProvider>
 
   );
 }

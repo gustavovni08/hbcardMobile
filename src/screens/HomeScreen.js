@@ -1,30 +1,32 @@
-import { View, Text, StyleSheet} from "react-native"
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { View, StyleSheet} from "react-native"
+
 import { useEffect, useState } from "react"
 import { useNavigation, useIsFocused } from "@react-navigation/native"
+
 import ButtonContainer from "../components/utils/Button"
-import CardAgendamento from "../components/Home/CardAgendamento"
 import ScrollAgendamento from "../components/../components/Home/ScrollAgendamentos"
+
 import api from "../services/api"
+import { useGlobalContext } from "../services/context"
 
 function HomeScreen(){
 
     const [agendamentos, setAgendamentos] = useState([])
-    const [user, setUser] = useState({})
+    const {associado} = useGlobalContext()
 
     const navigation = useNavigation()
     const isFocused = useIsFocused()
 
-    const getUser = async () =>{
-        try {
-            const userData = await AsyncStorage.getItem('ASSOCIADO')
-            console.log(JSON.parse(userData))
-            return JSON.parse(userData)
+    // const getUser = async () =>{
+    //     try {
+    //         const userData = await AsyncStorage.getItem('ASSOCIADO')
+    //         console.log(JSON.parse(userData))
+    //         return JSON.parse(userData)
     
-        } catch (error) {
-            console.error(error)
-        }
-    }
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
 
     const getAgendamentos = async (userId) => {
         try {
@@ -45,11 +47,11 @@ function HomeScreen(){
 
     useEffect(() => {
         const effect = async ()=> {
-            const user = await getUser()
-            setUser(user)
+            // const user = await getUser()
+            // setUser(user)
 
-            if(user && user.COD_ASSOCIADO) {
-                getAgendamentos(user.COD_ASSOCIADO)
+            if(associado && associado.COD_ASSOCIADO) {
+                getAgendamentos(associado.COD_ASSOCIADO)
             }
         } 
         if(isFocused){

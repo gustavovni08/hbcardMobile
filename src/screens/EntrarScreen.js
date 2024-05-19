@@ -1,16 +1,19 @@
 import { Image, View, StyleSheet} from "react-native"
-//import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import ButtonContainer from "../components/utils/Button";
 import InputContainer from "../components/utils/InputContainer";
 import PasswordContainer from "../components/utils/passwordContainer";
+
 import api from "../services/api"
+import { useGlobalContext } from "../services/context";
+
 import { useState } from "react"
 import { useNavigation } from "@react-navigation/native";
-import {setAssociadoStoredData} from '../services/GetStoredData'
 
 
 function SingInScreen(){
 
+    const { setAssociado } = useGlobalContext()
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
@@ -27,7 +30,7 @@ function SingInScreen(){
             console.log(auth)
             const { data } = await api.post('/validarAssociado', auth)
             if (data.response.code === 200 ){
-                await setAssociadoStoredData(data.response.data[0])
+                setAssociado(data.response.data[0])
                 navigation.navigate('Home')
             }
         } catch (error) {
