@@ -1,4 +1,5 @@
 import { TextInput, View, StyleSheet, Button } from "react-native"
+import { Linking } from 'react-native'
 import Clipboard from '@react-native-clipboard/clipboard';
 
 function ClipBoard(props){
@@ -7,6 +8,7 @@ function ClipBoard(props){
     
     const copiarTexto = () => {
         Clipboard.setString(texto)
+        Linking.openURL(texto)
     }
 
     return(

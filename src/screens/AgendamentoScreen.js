@@ -128,7 +128,7 @@ function AgendamentoScreen(){
             console.log('agendamento inserido com sucesso')
             setAgendamento(novoAgendamento)
             console.log(result)
-            navigator.navigate('FormaDePagamento')
+            navigator.navigate('FormaDePagamento', {origin:'Agendamento'})
         } catch (error) {
             console.error(error)
             window.alert(error)

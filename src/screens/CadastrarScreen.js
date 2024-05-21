@@ -1,7 +1,7 @@
 import { Image, View, StyleSheet } from "react-native"
 import { ScrollView } from "react-native"
 import { useState } from "react"
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
 import api from "../services/api"
 
 import ButtonContainer from "../components/utils/Button"
@@ -15,6 +15,9 @@ function SingUpScreen(){
     const [telefone, setTelefone] = useState('')
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
+
+    const route = useRoute()
+    const plano = route.params.plano
 
     const navigation = useNavigation()
 
@@ -32,15 +35,15 @@ function SingUpScreen(){
             logadouro: null,
             numero_logadouro: null,
             data_nascimento: null,
-            status:1,
-            plano:'Ouro Individual',
+            status:0,
+            plano:plano,
             telefone:telefone,
             
         }
 
         try {
             await api.post('/adicionarAssociado', data) 
-            navigation.navigate('Login')      
+            navigation.navigate('FormaDePagamento', {origin:'Cadastro', plano:plano})      
         } catch (error) {
             console.error(error)
         }
@@ -50,9 +53,9 @@ function SingUpScreen(){
     return(
         <ScrollView>
             <View style={styles.mainContainer}>
-            <View style={styles.imageContainer}>
+            {/* <View style={styles.imageContainer}>
                 <Image source={require('../assets/logo.png')}/>
-            </View>
+            </View> */}
 
             <InputContainer
             placeholder="Nome:"
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
         height:'600px',
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'#fff',
+        // backgroundColor:'#fff',
         marginBottom:'30px'
     },
 

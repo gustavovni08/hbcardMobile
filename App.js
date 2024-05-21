@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import EntrarScreen from './src/screens/EntrarScreen';
+import Planos from './src/screens/PlanosScreen';
 import CadastrarScreen from './src/screens/CadastrarScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -35,6 +36,14 @@ export default function App() {
         <Stack.Screen 
         name="Entrar" 
         component={EntrarScreen} 
+        options={{
+          cardStyle:{height:'100%'},
+          headerTitle:''
+          }}/>
+
+        <Stack.Screen 
+        name="Planos" 
+        component={Planos} 
         options={{
           cardStyle:{height:'100%'},
           headerTitle:''

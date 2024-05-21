@@ -46,7 +46,7 @@ function FormaDePagamento(){
             tipo:'AGENDAMENTO',
             status:'AGUARDANDO_PAGAMENTO',
             descricao:agendamento.descricao,
-            valor: agendamento.valor,
+            valor: parseFloat(agendamento.valor) + parseFloat(taxa),
             codigo_asaas:associado.COD_ASAAS,
             billingType: forma,
             dueDate: getData()
