@@ -1,7 +1,7 @@
 import { View } from "react-native"
 import { useNavigation ,useIsFocused } from "@react-navigation/core"
 import { useState, useEffect } from "react"
-import { useNavigation } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
 
 import api from "../services/api"
 import { useGlobalContext } from "../services/context"
