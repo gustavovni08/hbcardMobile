@@ -20,7 +20,7 @@ function LoginScreen(){
 
             <ButtonContainer
             title='Cadastrar'
-            onPress={() => navigation.navigate('Cadastrar')}
+            onPress={() => navigation.navigate('Planos')}
             />
         </View>
     )

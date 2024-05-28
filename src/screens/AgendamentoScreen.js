@@ -1,7 +1,6 @@
 import { View } from "react-native"
 import { useNavigation ,useIsFocused } from "@react-navigation/core"
 import { useState, useEffect } from "react"
-// import { useNavigation } from "@react-navigation/native";
 
 import api from "../services/api"
 import { useGlobalContext } from "../services/context"
@@ -15,7 +14,7 @@ import ButtonContainer from "../components/utils/Button"
 
 function AgendamentoScreen(){
 
-    const { servico, associado, agendamento, setAgendamento} = useGlobalContext()
+    const { servico, associado, setAgendamento} = useGlobalContext()
 
     const[datas, setDatas] = useState([])
     const[dataSelecionada, setDataSelecionada] = useState()
@@ -129,7 +128,7 @@ function AgendamentoScreen(){
             console.log('agendamento inserido com sucesso')
             setAgendamento(novoAgendamento)
             console.log(result)
-            navigator.navigate('FormaDePagamento')
+            navigator.navigate('FormaDePagamento', {origin:'Agendamento'})
         } catch (error) {
             console.error(error)
             window.alert(error)

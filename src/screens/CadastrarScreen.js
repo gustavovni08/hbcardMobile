@@ -1,7 +1,9 @@
 import { Image, View, StyleSheet } from "react-native"
 import { ScrollView } from "react-native"
 import { useState } from "react"
-import { useNavigation } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
+
+import { useGlobalContext } from "../services/context"
 import api from "../services/api"
 
 import ButtonContainer from "../components/utils/Button"
@@ -17,12 +19,16 @@ function SingUpScreen(){
     const [senha, setSenha] = useState('')
 
     const navigation = useNavigation()
+    const route = useRoute()
+
+    const plano = route.params.plano
+    const {setAssociado} = useGlobalContext()
 
     const submit = async () => {
 
         const data = {
             nome: nome,
-            email: email,
+            email: email.toLocaleLowerCase(),
             senha: senha,
             cpf: cpf,
             cep: null,
@@ -32,15 +38,16 @@ function SingUpScreen(){
             logadouro: null,
             numero_logadouro: null,
             data_nascimento: null,
-            status:1,
-            plano:'Ouro Individual',
+            status:0,
+            plano:plano,
             telefone:telefone,
             
         }
 
         try {
-            await api.post('/adicionarAssociado', data) 
-            navigation.navigate('Login')      
+            await api.post('/adicionarAssociado', data)
+            setAssociado(data) 
+            navigation.navigate('FormaDePagamento', {origin:"Cadastro", plano:plano})      
         } catch (error) {
             console.error(error)
         }
