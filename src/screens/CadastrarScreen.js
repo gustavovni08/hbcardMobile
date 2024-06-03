@@ -1,4 +1,4 @@
-import { Image, View, StyleSheet } from "react-native"
+import { Image, View, StyleSheet, Alert } from "react-native"
 import { ScrollView } from "react-native"
 import { useState } from "react"
 import { useNavigation, useRoute } from "@react-navigation/native"
@@ -50,6 +50,15 @@ function SingUpScreen(){
             navigation.navigate('FormaDePagamento', {origin:"Cadastro", plano:plano})      
         } catch (error) {
             console.error(error)
+            Alert.alert(
+                'Erro',
+                'Cpf inválido.',
+                [
+                  {text: 'Fechar', onPress: null},
+                ],
+                { cancelable: true }
+              )
+              window.alert('CPF inválido ou Dados duplicados')
         }
         
     }

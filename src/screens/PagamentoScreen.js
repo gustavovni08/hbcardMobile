@@ -66,7 +66,7 @@ function Pagamento(){
         }
 
         fetchData()
-        console.log(agendamento, servico, associado )
+        console.log(agendamento, servico, associado, origin )
     }, [])
 
     return(
@@ -112,7 +112,7 @@ function Pagamento(){
 
             <ButtonContainer
             title='Voltar para o Início'
-            onPress={() => navigator.navigate('Home')}
+            onPress={() => navigator.navigate('Home', {origin:origin})}
             />
             </>
         )}

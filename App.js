@@ -11,7 +11,8 @@ import GuiaMedico from './src/screens/GuiaMedicoScreen';
 import AgendamentoScreen from './src/screens/AgendamentoScreen';
 import FormaDePagamento from './src/screens/FormaDePagamentoScreen';
 import Pagamento from './src/screens/PagamentoScreen';
-
+import Mensalidades from './src/screens/Mensalidades';
+import Prontuario from './src/screens/Prontuario';
 
 import GlobalProvider from './src/services/context';
 
@@ -99,6 +100,23 @@ export default function App() {
         }}/>
 
 
+        <Stack.Screen 
+        name="Mensalidades" 
+        component={Mensalidades} 
+        options={{
+          headerShown: false,
+          cardStyle:{height:'100%'},
+          headerTitle:''
+        }}/>
+
+        <Stack.Screen 
+        name="Prontuario" 
+        component={Prontuario} 
+        options={{
+          headerShown: false,
+          cardStyle:{height:'100%'},
+          headerTitle:''
+        }}/>
       </Stack.Navigator>
     </NavigationContainer>
 
