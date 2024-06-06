@@ -46,6 +46,7 @@ function SingUpScreen(){
             navigation.navigate('FormaDePagamento', {origin:'Cadastro', plano:plano})      
         } catch (error) {
             console.error(error)
+            window.alert('Houve um erro, tente mais tarde')
         }
         
     }
