@@ -14,7 +14,7 @@ import ButtonContainer from "../components/utils/Button"
 
 function AgendamentoScreen(){
 
-    const { servico, associado, agendamento, setAgendamento} = useGlobalContext()
+    const { servico, associado, setAgendamento} = useGlobalContext()
 
     const[datas, setDatas] = useState([])
     const[dataSelecionada, setDataSelecionada] = useState()
@@ -109,10 +109,11 @@ function AgendamentoScreen(){
     const inserirNovoAgendamento = async () => {
 
         const {data} = await api.get('/listarMaiorCodigoAgendamento')
-        let cod_agendamento = data.response[0]['MAIOR_COD_AGENDAMENTO']
+        var cod_agendamento = data.response[0]['MAIOR_COD_AGENDAMENTO']
+        console.log(cod_agendamento)
 
         const novoAgendamento = {
-            cod_agendamento: cod_agendamento++,
+            cod_agendamento: cod_agendamento + 1,
             cod_associado: associado.COD_ASSOCIADO,
             cod_credenciado: credenciado.COD_CREDENCIADO,
             cod_servico: servico.CODIGO,

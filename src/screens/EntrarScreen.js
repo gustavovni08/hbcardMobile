@@ -35,7 +35,7 @@ function SingInScreen(){
             }
         } catch (error) {
             console.error(error)
-            window.alert('Ocorreu um erro tente novamente')
+            window.alert('Usuário ou Senha inválidos')
         }
         
 

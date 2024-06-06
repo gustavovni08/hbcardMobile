@@ -1,7 +1,9 @@
-import { Image, View, StyleSheet } from "react-native"
+import { Image, View, StyleSheet, Alert } from "react-native"
 import { ScrollView } from "react-native"
 import { useState } from "react"
 import { useNavigation, useRoute } from "@react-navigation/native"
+
+import { useGlobalContext } from "../services/context"
 import api from "../services/api"
 
 import ButtonContainer from "../components/utils/Button"
@@ -9,6 +11,8 @@ import InputContainer from "../components/utils/InputContainer"
 import PasswordContainer from "../components/utils/passwordContainer"
 
 function SingUpScreen(){
+
+    const {setAssociado} = useGlobalContext()
 
     const [nome, setNome] = useState('')
     const [cpf, setCpf] = useState('')
@@ -18,14 +22,15 @@ function SingUpScreen(){
 
     const route = useRoute()
     const plano = route.params.plano
-
     const navigation = useNavigation()
+  
+
 
     const submit = async () => {
 
         const data = {
             nome: nome,
-            email: email,
+            email: email.toLocaleLowerCase(),
             senha: senha,
             cpf: cpf,
             cep: null,
@@ -42,11 +47,20 @@ function SingUpScreen(){
         }
 
         try {
-            await api.post('/adicionarAssociado', data) 
-            navigation.navigate('FormaDePagamento', {origin:'Cadastro', plano:plano})      
+            await api.post('/adicionarAssociado', data)
+            setAssociado(data) 
+            navigation.navigate('FormaDePagamento', {origin:"Cadastro", plano:plano})      
         } catch (error) {
             console.error(error)
-            window.alert('Houve um erro, tente mais tarde')
+            // Alert.alert(
+            //     'Erro',
+            //     'Cpf inválido.',
+            //     [
+            //       {text: 'Fechar', onPress: null},
+            //     ],
+            //     { cancelable: true }
+            //   )
+              window.alert('CPF inválido ou Dados duplicados')
         }
         
     }

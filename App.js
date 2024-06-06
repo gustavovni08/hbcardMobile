@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import EntrarScreen from './src/screens/EntrarScreen';
-import Planos from './src/screens/PlanosScreen';
+import Planos from './src/screens/PlanoScreen';
 import CadastrarScreen from './src/screens/CadastrarScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
@@ -11,7 +11,8 @@ import GuiaMedico from './src/screens/GuiaMedicoScreen';
 import AgendamentoScreen from './src/screens/AgendamentoScreen';
 import FormaDePagamento from './src/screens/FormaDePagamentoScreen';
 import Pagamento from './src/screens/PagamentoScreen';
-
+import Mensalidades from './src/screens/Mensalidades';
+import Prontuario from './src/screens/Prontuario';
 
 import GlobalProvider from './src/services/context';
 
@@ -41,17 +42,25 @@ export default function App() {
           headerTitle:''
           }}/>
 
-        <Stack.Screen 
+        {/* <Stack.Screen 
         name="Planos" 
         component={Planos} 
         options={{
           cardStyle:{height:'100%'},
           headerTitle:''
-          }}/>
+          }}/> */}
 
         <Stack.Screen 
         name="Cadastrar" 
         component={CadastrarScreen} 
+        options={{
+          cardStyle:{height:'100%'},
+          headerTitle:''
+        }}/>
+
+        <Stack.Screen 
+        name="Planos" 
+        component={Planos} 
         options={{
           cardStyle:{height:'100%'},
           headerTitle:''
@@ -99,6 +108,23 @@ export default function App() {
         }}/>
 
 
+        <Stack.Screen 
+        name="Mensalidades" 
+        component={Mensalidades} 
+        options={{
+          headerShown: false,
+          cardStyle:{height:'100%'},
+          headerTitle:''
+        }}/>
+
+        <Stack.Screen 
+        name="Prontuario" 
+        component={Prontuario} 
+        options={{
+          headerShown: false,
+          cardStyle:{height:'100%'},
+          headerTitle:''
+        }}/>
       </Stack.Navigator>
     </NavigationContainer>
 
