@@ -3,14 +3,17 @@ import { useState, useEffect } from "react"
 import CardAgendamento from "./CardAgendamento"
 import { StyleSheet } from "react-native"
 
-function ScrollAgendamento(props){
-    const {lista, max} = props
 
+function ScrollAgendamento(props){
+
+    const {lista, onPress} = props
     const [agendamentos, setAgendamentos] = useState([])
 
     useEffect(()=>{
         setAgendamentos(lista)
     }, [lista])
+
+
 
     return(
 
@@ -21,6 +24,7 @@ function ScrollAgendamento(props){
                     key={index}
                     title={agendamento.DESCRICAO}
                     data={agendamento.DATA}
+                    onPress={() => onPress(agendamento)}
                     />
                 
                     )

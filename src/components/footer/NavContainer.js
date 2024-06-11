@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, StyleSheet } from "react-native"
+import { View, TouchableOpacity, StyleSheet, Text } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 
 function NavContainer(props){
@@ -11,7 +11,7 @@ function NavContainer(props){
             <TouchableOpacity
             style={[styles.mainContainer, {width: width ? `${width}px` : '90px'}]}
             onPress={()=>navigator.navigate(title)}>
-                {title}
+                <Text>{title}</Text>
             </TouchableOpacity>
         </View>
     )

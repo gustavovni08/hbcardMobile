@@ -108,6 +108,10 @@ function AgendamentoScreen(){
 
     const inserirNovoAgendamento = async () => {
 
+        if(horaSelecionada === undefined || dataSelecionada === undefined){
+            window.alert('erro')
+        }else{
+
         const {data} = await api.get('/listarMaiorCodigoAgendamento')
         var cod_agendamento = data.response[0]['MAIOR_COD_AGENDAMENTO']
         console.log(cod_agendamento)
@@ -134,6 +138,7 @@ function AgendamentoScreen(){
             console.error(error)
             window.alert(error)
         }
+    }
 
     }
 

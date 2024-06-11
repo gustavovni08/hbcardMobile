@@ -13,6 +13,7 @@ import FormaDePagamento from './src/screens/FormaDePagamentoScreen';
 import Pagamento from './src/screens/PagamentoScreen';
 import Mensalidades from './src/screens/Mensalidades';
 import Prontuario from './src/screens/Prontuario';
+import Guia from './src/screens/guia';
 
 import GlobalProvider from './src/services/context';
 
@@ -105,6 +106,14 @@ export default function App() {
         options={{
           cardStyle:{height:'100%'},
           headerTitle:''
+        }}/>
+
+        <Stack.Screen
+        name="Guia"
+        component={Guia}
+        options={{
+          cardStyle:{height:'100%'},
+          headerTitle:'Guia de Confirmação'
         }}/>
 
 

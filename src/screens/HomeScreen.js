@@ -15,7 +15,7 @@ import { useGlobalContext } from "../services/context"
 function HomeScreen(){
 
     const [agendamentos, setAgendamentos] = useState([])
-    const {associado, setAssociado} = useGlobalContext()
+    const {associado, setAssociado, setAgendamento} = useGlobalContext()
     const [width, setWidth] = useState()
 
     const navigation = useNavigation()
@@ -59,6 +59,7 @@ function HomeScreen(){
     }
 
     const validarAssociado = async () => {
+        try{
 
         const origin = route.params.origin
 
@@ -79,10 +80,20 @@ function HomeScreen(){
                 window.alert('Usuário ou Senha inválidos')
             }
         }
+    } catch (error){
+        return
+    }
        
         
 
     }
+
+    const irParaGuia = (agendamento) => {
+        console.log(agendamento)
+        setAgendamento(agendamento)
+        navigation.navigate('Guia')
+    }
+
 
     useEffect(() => {
         const effect = async ()=> {
@@ -96,7 +107,6 @@ function HomeScreen(){
         }
 
         const screen = Dimensions.get('screen')
-        console.log(screen.width)
         setWidth(screen.width)
     }, [isFocused])
 
@@ -106,7 +116,9 @@ function HomeScreen(){
 
             {agendamentos.length !== 0 && (
                 <ScrollAgendamento
-                lista={agendamentos}/>
+                lista={agendamentos}
+                onPress={irParaGuia}
+                />
             )}
 
 
