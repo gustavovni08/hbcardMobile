@@ -124,9 +124,9 @@ function HomeScreen(){
 
             <ButtonContainer
             title="Novo Agendamento"
-            width='300px'
-            height='50px'
-            fontSize='22px'
+            width={300}
+            height={50}
+            fontSize={22}
             onPress={irParaAgendamento}
             />
 
@@ -150,14 +150,14 @@ function HomeScreen(){
 
 const styles = StyleSheet.create({
     mainContainer:{
-        flex:'0.8',
+        flex:0.8,
         alignItems:'center',
         justifyContent:'space-evenly',
         width:'80%'
     },
 
     container:{
-        flex:'1',
+        flex:1,
         alignItems:'center',
         justifyContent:'space-between'
     },

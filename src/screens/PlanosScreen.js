@@ -36,7 +36,7 @@ function Planos(){
 const styles = StyleSheet.create({
     mainContainer:{
        justifyContent:'center',
-       height:'600px',
+       height:600,
     }
 })
 

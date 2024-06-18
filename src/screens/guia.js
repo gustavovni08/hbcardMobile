@@ -81,7 +81,7 @@ function Guia(){
 }
 
 const styles = StyleSheet.create({
-    textContainer: { fontWeight: 400, fontSize:18, textAlign:'left', width:'80%', borderStyle:'solid'},
+    textContainer: { fontSize:18, textAlign:'left', width:'80%', borderStyle:'solid'},
     textAlign: {justifyContent:'center', alignItems:'center'}
 })
 

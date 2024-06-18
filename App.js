@@ -1,7 +1,7 @@
 import React from 'react';
-import {AppRegistry} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { registerRootComponent } from 'expo';
 
 import EntrarScreen from './src/screens/EntrarScreen';
 import Planos from './src/screens/PlanoScreen';
@@ -20,7 +20,7 @@ import GlobalProvider from './src/services/context';
 
 const Stack = createStackNavigator();
 
-AppRegistry.registerComponent('HBCARD', ()=> App)
+
 
 export default function App() {
   return (
@@ -45,14 +45,6 @@ export default function App() {
           cardStyle:{height:'100%'},
           headerTitle:''
           }}/>
-
-        {/* <Stack.Screen 
-        name="Planos" 
-        component={Planos} 
-        options={{
-          cardStyle:{height:'100%'},
-          headerTitle:''
-          }}/> */}
 
         <Stack.Screen 
         name="Cadastrar" 
@@ -142,5 +134,7 @@ export default function App() {
 
     </GlobalProvider>
 
-  );
+  )
 }
+
+registerRootComponent(App)

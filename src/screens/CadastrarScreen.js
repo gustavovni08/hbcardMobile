@@ -115,60 +115,60 @@ function SingUpScreen(){
 
 const styles = StyleSheet.create({
     mainContainer:{
-        height:'600px',
+        height:600,
         alignItems:'center',
         justifyContent:'center',
         // backgroundColor:'#fff',
-        marginBottom:'30px'
+        marginBottom:30
     },
 
     imageContainer:{
         alignItems:'center',
         justifyContent:'center',
-        height:'300px',
+        height:300,
 
     },
 
     buttonContainer:{
         alignItems:'center',
         justifyContent:'center',
-        height:'50px', 
+        height:50, 
     },
     
     
     inputContainer:{
         alignItems:'center',
         justifyContent:'flex-start',
-        height:'50px', 
+        height:50, 
     },
 
     input:{
         borderStyle:'solid',
-        borderWidth:'0.1px',
-        borderRadius:'4px',
-        width:'200px',
+        borderWidth:1,
+        borderRadius:4,
+        width:200,
     },
 
     passwordInput:{
         borderStyle:'solid',
-        borderWidth:'0.1px',
+        borderWidth:1,
         // borderRadius:'4px 0px 4px 0px ',
-        width:'170px',
+        width:170,
     },
 
     button:{
         alignItems:'center',
         justifyContent:'center',
-        height:'35px',
-        width:'200px',
+        height:35,
+        width:200,
         backgroundColor: '#3b5998',
-        borderRadius:'8px'
+        borderRadius:8
     },
 
     buttonFont:{
         color:'#fff',
         fontWeight:'bold',
-        fontSize:"'22px"
+        fontSize:22
     }
 
 })

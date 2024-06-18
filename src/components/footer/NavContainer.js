@@ -9,7 +9,7 @@ function NavContainer(props){
     return(
         <View>
             <TouchableOpacity
-            style={[styles.mainContainer, {width: width ? `${width}px` : '90px'}]}
+            style={[styles.mainContainer, {width: width ? width : 90}]}
             onPress={()=>navigator.navigate(title)}>
                 <Text>{title}</Text>
             </TouchableOpacity>
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         backgroundColor:'#d9d9d9',
         borderColor:'white',
-        height:'80px',
+        height:80,
 
     }
 })

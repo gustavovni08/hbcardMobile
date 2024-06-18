@@ -1,13 +1,13 @@
 import { TextInput, View, StyleSheet, Button } from "react-native"
 import { Linking } from 'react-native'
-import Clipboard from '@react-native-clipboard/clipboard';
+// import Clipboard from '@react-native-clipboard/clipboard';
 
 function ClipBoard(props){
 
     const {texto} = props
     
     const copiarTexto = () => {
-        Clipboard.setString(texto)
+        // Clipboard.setString(texto)
         Linking.openURL(texto)
     }
 
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'center',
         width:'100%',
-        marginTop:'10px',
-        marginBottom:'30px'
+        marginTop:10,
+        marginBottom:30
 
     },
 

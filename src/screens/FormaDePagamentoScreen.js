@@ -32,6 +32,10 @@ function FormaDePagamento(){
         }
     }
 
+    const changeForma = (forma) =>{
+        setForma(forma)
+    }
+
     function getData() {
         const dataAtual = new Date();
     
@@ -166,8 +170,7 @@ function FormaDePagamento(){
                 <SelectContainer
                 label='Forma de Pagamento'
                 data={formas}
-                selectedValue={forma}
-                onValueChange={(itemValue) => changeStates(itemValue)}
+                setOption={changeForma}
                 flexDirection='column'
                 paddingLeft='0px'/>
                 <Text style={styles.TextContainer}>Taxa de forma de pagamento: +{taxa}</Text>

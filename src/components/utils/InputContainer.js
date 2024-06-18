@@ -20,16 +20,16 @@ const styles = StyleSheet.create({
     inputContainer:{
         alignItems:'center',
         justifyContent:'flex-start',
-        height:'50px', 
+        height:50, 
     },
 
     input:{
         borderStyle:'solid',
-        borderWidth:'0.1px',
+        borderWidth:1,
         // borderRadius:'4px',
-        height:'30px',
-        width:'200px',
-        height:'30px',
+        height:30,
+        width:200,
+        height:30,
         backgroundColor:'#fff'
     },
 })

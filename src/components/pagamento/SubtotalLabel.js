@@ -2,12 +2,12 @@ import { View, Text, StyleSheet } from "react-native";
 
 function SubtotalLabel(props){
 
-    const {label, valor, fontSize} = props
+    const {label, valor} = props
 
     return(
         <View style={styles.mainContainer}>
-            <Text style={[styles.fontStyle, {fontSize: fontSize ? fontSize : '18px'}]}>{label}</Text>
-            <Text style={[styles.fontStyle, {fontSize: fontSize ? fontSize : '18px'}]}>{valor}</Text>
+            <Text style={styles.fontStyle}>{label}</Text>
+            <Text style={styles.fontStyle}>{valor}</Text>
         </View>
     )
 }
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
 
     fontStyle:{
-        fontWeight:'400'
+        fontSize: 18
     }
 })
 

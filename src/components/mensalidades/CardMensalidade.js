@@ -31,7 +31,7 @@ function CardMensalidade(props){
             </View>
             <View style={styles.lineContainer}>
                 <Text>Status:</Text> 
-                <Text style={{fontSize: '10px', paddingTop:'2.5%'}}>{status}</Text> 
+                <Text style={{fontSize: 10, paddingTop:'2.5%'}}>{status}</Text> 
             </View>
             
             <View>
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
         width: '100%',
         alignContent:'center',
         backgroundColor:'#d9d9d9',
-        marginBottom:'30px',
-        padding:'14px'
+        marginBottom:30,
+        padding:14
     },
 
     lineContainer:{

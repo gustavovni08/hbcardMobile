@@ -1,28 +1,20 @@
-import { Picker, Text, StyleSheet, View } from "react-native"
+import { Text, StyleSheet, View } from "react-native"
+import Picker from "./Picker"
 
 
 function SelectContainer(props){
 
-    const {label, data, onValueChange, selectedValue, fontSize, flexDirection, paddingLeft} = props
+    const {label, data, setOption, flexDirection, paddingLeft} = props
 
     return( 
     <View style={[styles.mainContainer, 
     {flexDirection: flexDirection ? flexDirection : 'row'},
-    {paddingLeft: paddingLeft ? paddingLeft : '35px'}]}>
-        <Text style={{fontSize: fontSize ? fontSize : '22px'}}>{label}:</Text>
+    {paddingLeft: paddingLeft ? paddingLeft : 35}]}>
+
+        <Text style={{fontSize : 22}}>{label}:</Text>
         <Picker
-        selectedValue={selectedValue}
-        onValueChange={onValueChange}
-        >
-            {data.map((item, index) =>(
-                <Picker.Item
-                key={index}
-                label={item}
-                value={item}
-                />
-            ))}
-            
-        </Picker>
+        data={data}
+        setOption={setOption}/>
     </View>
     
     )
@@ -34,7 +26,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-between',
         alignItems: 'center',
-        marginBottom:'10px'
+        marginBottom:10
     }
 })
 

@@ -38,10 +38,10 @@ function PasswordContainer(props){
 const styles = StyleSheet.create({
     passwordInput:{
         borderStyle:'solid',
-        borderWidth:'0.1px',
+        borderWidth:1,
         borderRightColor:"#fff",
-        width:'170px',
-        height:'30px',
+        width:170,
+        height:30,
         backgroundColor:'#fff'
     },
 
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         alignItems:'flex-start',
         justifyContent:'center',
-        height:'50px', 
+        height:50, 
 
     },
 
@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         borderStyle:'solid',
-        borderWidth:'0.1px',
-        width:'30px',
-        height:'30px',
+        borderWidth:1,
+        width:30,
+        height:30,
         backgroundColor:'#fff'
     },
 })

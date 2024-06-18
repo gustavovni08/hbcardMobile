@@ -11,7 +11,7 @@ function Subtotal(props){
             <SubtotalLabel
             label="Subtotal"
             valor={parseFloat(valor) + parseFloat(taxa)}
-            fontSize='22px'/>
+            />
             <SubtotalLabel
             label="Valor"
             valor={valor}/>

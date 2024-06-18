@@ -61,14 +61,14 @@ function Mensalidades(){
 
 const styles = StyleSheet.create({
     mainContainer:{
-        flex:'0.8',
+        flex:0.8,
         alignItems:'center',
         justifyContent:'space-evenly',
         width:'80%'
     },
 
     container:{
-        flex:'1',
+        flex:1,
         alignItems:'center',
         justifyContent:'space-between'
     },

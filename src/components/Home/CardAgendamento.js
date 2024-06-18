@@ -19,18 +19,18 @@ const styles = StyleSheet.create({
     mainContainer:{
         justifyContent:'center',
         alignItems:'center',
-        marginTop:'10px',
-        marginBottom:'10px'
+        marginTop:10,
+        marginBottom:10
     },
 
     cardContainer:{
         alignItems:'center',
-        width:'300px',
+        width:300,
         flexDirection:'row',
         backgroundColor:'#d9d9d9',
         justifyContent:'space-between',
-        height:'50px',
-        padding:'14px'
+        height:50,
+        padding:14
     }
 })
 

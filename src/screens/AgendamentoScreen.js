@@ -142,6 +142,15 @@ function AgendamentoScreen(){
 
     }
 
+    const changeHora = (hora) => {
+        setHoraSelecionada(hora)
+    }
+
+    const changeData = (data) => {
+        setDataSelecionada(data)
+    }
+
+
     useEffect(() =>{
     const fetchData = async () =>{
  
@@ -176,14 +185,12 @@ function AgendamentoScreen(){
 
             <SelectContainer
             label="Dia"
-            selectedValue={dataSelecionada}
-            onValueChange={(itemValue) => setDataSelecionada(itemValue)}
+            setOption={changeData}
             data={datas}/>
 
             <SelectContainer
             label="Horarios"
-            selectedValue={horaSelecionada}
-            onValueChange={(itemValue) => setHoraSelecionada(itemValue)}
+            setOption={changeHora}
             data={horarios}/>
 
             <ValorContainer
@@ -193,7 +200,7 @@ function AgendamentoScreen(){
             title="ir para pagamento"
             onPress={async () => inserirNovoAgendamento()}
             width="80%"
-            height="40px"
+            height={40}
             />
         </View>
     )
